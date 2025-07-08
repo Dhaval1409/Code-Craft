@@ -51,7 +51,7 @@
 
 ### 🔄 Phase Two: Backend Integration (In Progress)
 - Setting up backend with Node.js & Express
-- Implementing API calls and OpenRouter API integration
+- Implementing API calls using OpenRouter / OpenAI APIs
 - Preparing MongoDB database for storing user data and reminders
 
 ---
