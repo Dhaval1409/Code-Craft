@@ -111,6 +111,10 @@ color: black;
   text-align: left;
 }
 
+.chatbox {
+  scroll-behavior: smooth; /* for smooth scrolling */
+}
+
   @media screen and (max-width: 600px) {
     .searchmessage input{
    width: 80%;

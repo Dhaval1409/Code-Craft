@@ -1,42 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chat</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-    <header>
-        <div class="menu">
-            <div class="bars"><i class="fa-solid fa-bars"></i></div>
-            <div class="logo">JeevanAI</div>
-        </div>
-    </header>
-    <div class="chatbox" id="chat-box">
-     <div class="message bot">Welcome to JeevanAI! Ask me anything. ❤️</div>
-
+  <header>
+    <div class="menu">
+      <div class="bars"><i class="fa-solid fa-bars"></i></div>
+      <div class="logo">JeevanAI</div>
     </div>
-    </div>
-    <div class="searchmessage">
-        <input type="text" placeholder="type here" id="user-input" >
+  </header>
 
-        <div class="icons">
-        <i class="fa-solid fa-plus"></i>
-        <i class="fa-solid fa-sliders"></i>
-            <i class="fa-solid fa-microphone" id="mic-btn"></i>
-            <i class="fa-solid fa-paper-plane" id="send-btn"></i>
-        </div>
-<div class="nav">
+  <div class="chatbox" id="chat-box">
+    <div class="message bot">Welcome to JeevanAI! Ask me anything. ❤️</div>
+  </div>
+
+  <div class="searchmessage">
+    <input type="text" placeholder="type here" id="user-input" />
+    <div class="icons">
+    <input type="file" id="image-upload" accept="image/*" style="display: none;" />
+     <i class="fa-solid fa-plus" id="upload-icon"></i>
+
+      <i class="fa-solid fa-sliders"></i>
+      <i class="fa-solid fa-microphone" id="mic-btn"></i>
+      <i class="fa-solid fa-paper-plane" id="send-btn"></i>
+    </div>
+  </div>
+
+  <div class="nav">
     <a href="index.html"><i class="fa-solid fa-house"></i></a>
     <a href="farmer.html"><i class="fa-solid fa-wheat-awn"></i></a>
     <a href="helth.html"><i class="fa-solid fa-heart-pulse"></i></a>
     <a href="schem.html"><i class="fa-solid fa-user"></i></a>
-</div>
-<script src="script.js"></script>
-</body>
+  </div>
 
+  <script src="script.js"></script>
+</body>
 </html>
