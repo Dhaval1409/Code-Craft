@@ -14,7 +14,6 @@
 ### 🌾 For Farmers:
 - Real-time weather updates
 - Mandi (market) price information
-- Crop health and farming tips
 
 ### 🩺 For Everyone (Health Section):
 - Daily health care tips
