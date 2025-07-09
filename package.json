@@ -1,4 +1,7 @@
 {
+  "engines":{
+  "node": "20.12.2"
+},
   "name": "code-craft",
   "version": "1.0.0",
   "description": "jeevanAI  \r # Project Title : \r Jeevan Ai\r # about Project : \r  1) 1.24x7 doubt-solving support for students\r     preparing for exams.\r  2) Farmers stay updated with weather,mandi rates & crop tips.\r  3) helth care tips",
@@ -11,10 +14,16 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^1.10.0",
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.1.0",
+    "ejs": "^3.1.10",
     "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "mongodb": "^6.17.0",
+    "mongoose": "^8.16.2",
     "multer": "^2.0.1",
+    "path": "^0.12.7",
     "tesseract.js": "^6.0.1"
   }
 }

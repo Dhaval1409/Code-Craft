@@ -8,7 +8,6 @@ const path = require('path');
 const cors = require('cors');
 const multer = require("multer");
 const Tesseract = require("tesseract.js");
-const mongoose = require('mongoose');
 const session = require('express-session');
 
 const schemeRoutes = require('./routes/schemes');
@@ -17,20 +16,25 @@ const mandiItemsRouter = require('./routes/items');
 
 // ===============================
 // ⚙️ Load Environment Variables
-// ===============================
-dotenv.config();
-console.log('OpenRouter API key:', process.env.OPENROUTER_API_KEY ? 'FOUND' : 'NOT FOUND');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-// ===============================
-// 🔗 Connect MongoDB
-// ===============================
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/mandiDB', {
+const mongoURI = process.env.MONGO_URI;
+
+if (!mongoURI) {
+  console.error("❌ MONGODB_URI not found in .env");
+  process.exit(1); // Stop the app if URI is not provided
+}
+
+mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-})
-  .then(() => console.log('✅ MongoDB connected'))
-  .catch((err) => console.error('MongoDB connection error:', err));
-
+}).then(() => {
+  console.log(`✅ MongoDB connected to cloud at ${mongoURI}`);
+}).catch((err) => {
+  console.error("❌ MongoDB connection error:", err);
+  process.exit(1);
+});
 // ===============================
 // 🚀 Initialize App
 // ===============================
