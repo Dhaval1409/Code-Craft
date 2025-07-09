@@ -13,14 +13,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 
     <style>
         body {
             margin: 0;
             padding-bottom: 70px;
-            overflow-x: hidden;
             font-family: sans-serif;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         .wether {
@@ -72,6 +73,7 @@
             height: 150px;
             object-fit: cover;
         }
+
         .card-title {
             font-size: 16px;
         }
@@ -79,6 +81,68 @@
         .card-body h6 {
             font-weight: bold;
         }
+
+        .weather-icon.fa-sun {
+            color: #FDB813;
+        }
+
+        /* Sunny - Gold */
+        .weather-icon.fa-moon {
+            color: #A3C9F9;
+        }
+
+        /* Moon - Light Blue */
+        .weather-icon.fa-cloud-sun {
+            color: #FDB813;
+        }
+
+        /* Cloudy Day - Gold */
+        .weather-icon.fa-cloud-moon {
+            color: #A3C9F9;
+        }
+
+        /* Cloudy Night - Blue */
+        .weather-icon.fa-cloud {
+            color: #B0BEC5;
+        }
+
+        /* Cloud - Gray */
+        .weather-icon.fa-cloud-meatball {
+            color: #90A4AE;
+        }
+
+        /* Thick Cloud - Dark Gray */
+        .weather-icon.fa-cloud-showers-heavy {
+            color: #4FC3F7;
+        }
+
+        /* Rain - Light Blue */
+        .weather-icon.fa-cloud-sun-rain {
+            color: #29B6F6;
+        }
+
+        /* Rainy Day - Blue */
+        .weather-icon.fa-cloud-moon-rain {
+            color: #0288D1;
+        }
+
+        /* Rainy Night - Deep Blue */
+        .weather-icon.fa-bolt {
+            color: #FFD700;
+        }
+
+        /* Lightning - Yellow */
+        .weather-icon.fa-snowflake {
+            color: #B3E5FC;
+        }
+
+        /* Snow - Icy Blue */
+        .weather-icon.fa-smog {
+            color: #9E9E9E;
+        }
+
+        /* Fog - Dusty Gray */
+
     </style>
 </head>
 
@@ -86,10 +150,10 @@
 
     <!-- Weather Section -->
     <div class="wether">
-        <h1 id="current-Time">00:00</h1>
-        <i class="fa-solid fa-sun"></i>
-        <h3>20°C</h3>
-        <h4>Ahmedabad</h4>
+        <h1 id="current-time">00:00</h1>
+        <i id="weather-icon" class="fa-solid fa-sun"></i>
+        <h3 id="temperature">20°C</h3>
+        <h4 id="location-name">Ahmedabad</h4>
     </div>
 
     <!-- Search & Filters -->
@@ -110,8 +174,8 @@
             <option value="others">Other Items</option>
         </select>
 
-         <select class="btn">
-            <option value="">location</option>
+        <select class="btn">
+            <option value="">Location</option>
             <option value="vegetables">Vegetable</option>
             <option value="fruits">Fruits</option>
             <option value="grains">Grains</option>
@@ -122,154 +186,13 @@
         </select>
     </div>
 
+    <a href="add-item.html" class="btn btn-danger" style="border-radius: 9999px; font-size: 14px;">
+        <i class="fa-solid fa-plus"></i> Add Item
+    </a>
+
     <!-- Cards Grid -->
     <div class="container">
-        <div class="row justify-content-center">
-
-            <!-- Card 1 -->
-            <div class="col-6 col-md-4 col-lg-3 mb-4">
-                <div class="card h-100">
-                    <img src="https://images.unsplash.com/photo-1425543103986-22abb7d7e8d2?q=80" class="card-img-top"
-                        alt="Ladyfinger" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Ladyfinger (Bhindi)</h5>
-                        <select class="form-select form-select-sm mb-2">
-                            <option>1kg</option>
-                            <option>500g</option>
-                            <option>5kg</option>
-                            <option>10kg</option>
-                        </select>
-                        <h6>₹40</h6>
-                        <a href="#" class="btn btn-sm btn-primary mt-1">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-              <div class="col-6 col-md-4 col-lg-3 mb-4">
-        <div class="card h-100">
-          <img src="https://images.unsplash.com/photo-1582515073490-39981397c445?q=80" class="card-img-top" alt="Tomato" />
-          <div class="card-body text-center">
-            <h5 class="card-title">Tomato</h5>
-            <select class="form-select form-select-sm mb-2">
-              <option>1kg</option>
-              <option>500g</option>
-              <option>5kg</option>
-              <option>10kg</option>
-            </select>
-            <h6>₹20</h6>
-            <a href="#" class="btn btn-sm btn-primary mt-1">Buy Now</a>
-          </div>
-        </div>
-      </div>
-            <!-- Card 1 -->
-            <div class="col-6 col-md-4 col-lg-3 mb-4">
-                <div class="card h-100">
-                    <img src="https://images.unsplash.com/photo-1425543103986-22abb7d7e8d2?q=80" class="card-img-top"
-                        alt="Ladyfinger" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Ladyfinger (Bhindi)</h5>
-                        <select class="form-select form-select-sm mb-2">
-                            <option>1kg</option>
-                            <option>500g</option>
-                            <option>5kg</option>
-                            <option>10kg</option>
-                        </select>
-                        <h6>₹40</h6>
-                        <a href="#" class="btn btn-sm btn-primary mt-1">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-6 col-md-4 col-lg-3 mb-4">
-                <div class="card h-100">
-                    <img src="https://images.unsplash.com/photo-1582515073490-39981397c445?q=80" class="card-img-top"
-                        alt="Tomato" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Tomato</h5>
-                        <select class="form-select form-select-sm mb-2">
-                            <option>1kg</option>
-                            <option>500g</option>
-                            <option>5kg</option>
-                            <option>10kg</option>
-                        </select>
-                        <h6>₹20</h6>
-                        <a href="#" class="btn btn-sm btn-primary mt-1">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 mb-4">
-                <div class="card h-100">
-                    <img src="https://images.unsplash.com/photo-1582515073490-39981397c445?q=80" class="card-img-top"
-                        alt="Tomato" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Tomato</h5>
-                        <select class="form-select form-select-sm mb-2">
-                            <option>1kg</option>
-                            <option>500g</option>
-                            <option>5kg</option>
-                            <option>10kg</option>
-                        </select>
-                        <h6>₹20</h6>
-                        <a href="#" class="btn btn-sm btn-primary mt-1">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 mb-4">
-                <div class="card h-100">
-                    <img src="https://images.unsplash.com/photo-1582515073490-39981397c445?q=80" class="card-img-top"
-                        alt="Tomato" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Tomato</h5>
-                        <select class="form-select form-select-sm mb-2">
-                            <option>1kg</option>
-                            <option>500g</option>
-                            <option>5kg</option>
-                            <option>10kg</option>
-                        </select>
-                        <h6>₹20</h6>
-                        <a href="#" class="btn btn-sm btn-primary mt-1">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 1 -->
-            <div class="col-6 col-md-4 col-lg-3 mb-4">
-                <div class="card h-100">
-                    <img src="https://images.unsplash.com/photo-1425543103986-22abb7d7e8d2?q=80" class="card-img-top"
-                        alt="Ladyfinger" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Ladyfinger (Bhindi)</h5>
-                        <select class="form-select form-select-sm mb-2">
-                            <option>1kg</option>
-                            <option>500g</option>
-                            <option>5kg</option>
-                            <option>10kg</option>
-                        </select>
-                        <h6>₹40</h6>
-                        <a href="#" class="btn btn-sm btn-primary mt-1">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Copy the card above and paste more below -->
-            <div class="col-6 col-md-4 col-lg-3 mb-4">
-                <div class="card h-100">
-                    <img src="https://images.unsplash.com/photo-1582515073490-39981397c445?q=80" class="card-img-top"
-                        alt="Tomato" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Tomato</h5>
-                        <select class="form-select form-select-sm mb-2">
-                            <option>1kg</option>
-                            <option>500g</option>
-                            <option>5kg</option>
-                            <option>10kg</option>
-                        </select>
-                        <h6>₹20</h6>
-                        <a href="#" class="btn btn-sm btn-primary mt-1">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Add more cards as needed -->
-
+                  <div class="row justify-content-center"></div>    
         </div>
     </div>
 
@@ -281,8 +204,9 @@
         <a href="schem.html"><i class="fa-solid fa-user"></i></a>
     </div>
 
-    <!-- Optional JS for Bootstrap (not mandatory unless you use modals, dropdowns, etc.) -->
+    <!-- Optional JS for Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="farmer.js"></script>
 </body>
 
 </html>
