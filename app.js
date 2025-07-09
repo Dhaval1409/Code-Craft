@@ -14,6 +14,7 @@ const schemeRoutes = require('./routes/schemes');
 const authRoutes = require('./routes/auth');
 const mandiItemsRouter = require('./routes/items');
 
+
 // ===============================
 // ⚙️ Load Environment Variables
 const mongoose = require('mongoose');
@@ -105,11 +106,18 @@ app.get('/', (req, res) => {
 });
 
 // ✅ Farmer route (example)
+const MandiItem = require('./models/MandiItem');
+
 app.get('/farmer', async (req, res) => {
-// //   / Implement getItemsFromDB()
-//   res.render('farmer', { items });
-res.render('farmer');
+  try {
+    const items = await MandiItem.find(); // Fetch all items from DB
+    res.render('farmer', { items });      // Pass to EJS
+  } catch (error) {
+    console.error('❌ Error loading mandi items:', error);
+    res.status(500).send('Server Error');
+  }
 });
+
 
 app.get('/add-item', (req, res) => {
   res.render('add-item'); // This renders views/add-item.ejs
