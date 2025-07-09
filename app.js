@@ -27,8 +27,7 @@ if (!mongoURI) {
 }
 
 mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+
 }).then(() => {
   console.log(`✅ MongoDB connected to cloud at ${mongoURI}`);
 }).catch((err) => {
