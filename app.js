@@ -111,6 +111,9 @@ app.get('/farmer', async (req, res) => {
 res.render('farmer');
 });
 
+app.get('/add-item', (req, res) => {
+  res.render('add-item'); // This renders views/add-item.ejs
+});
 app.get('/schem', (req, res) => {
   res.render('schem'); // views/schem.ejs
 });
