@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login / Signup</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+  <style>
+    .form-toggle { cursor: pointer; color: blue; text-decoration: underline; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body class="bg-light">
+
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="card p-4 shadow-sm">
+
+          <h3 id="form-title" class="text-center mb-4">Login</h3>
+
+          <!-- Login Form -->
+          <form id="login-form" method="POST" action="/auth/login">
+            <div class="mb-3">
+              <label>Email</label>
+              <input type="email" name="email" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label>Password</label>
+              <input type="password" name="password" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+          </form>
+
+          <!-- Signup Form -->
+          <form id="signup-form" class="hidden" method="POST" action="/auth/signup">
+            <div class="mb-3">
+              <label>Name</label>
+              <input type="text" name="name" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label>Email</label>
+              <input type="email" name="email" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label>Password</label>
+              <input type="password" name="password" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-success w-100">Signup</button>
+          </form>
+
+          <div class="mt-3 text-center">
+            <span id="toggle-text">Don't have an account?</span>
+            <span class="form-toggle" onclick="toggleForms()">Signup here</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleForms() {
+      const loginForm = document.getElementById('login-form');
+      const signupForm = document.getElementById('signup-form');
+      const formTitle = document.getElementById('form-title');
+      const toggleText = document.getElementById('toggle-text');
+      const toggleLink = document.querySelector('.form-toggle');
+
+      loginForm.classList.toggle('hidden');
+      signupForm.classList.toggle('hidden');
+
+      if (loginForm.classList.contains('hidden')) {
+        formTitle.innerText = 'Signup';
+        toggleText.innerText = 'Already have an account?';
+        toggleLink.innerText = 'Login here';
+      } else {
+        formTitle.innerText = 'Login';
+        toggleText.innerText = "Don't have an account?";
+        toggleLink.innerText = 'Signup here';
+      }
+    }
+  </script>
+
+</body>
+</html>

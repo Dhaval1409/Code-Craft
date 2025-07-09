@@ -73,6 +73,9 @@ app.get('/login.html', (req, res) => {
   res.render('login');
 });
 
+app.get('/student.html', isAuthenticated, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'student.html'));
+});
 
 // ✅ Auth routes
 app.use('/auth', authRoutes);
