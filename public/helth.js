@@ -8,6 +8,14 @@ flatpickr("#reminder-time", {
 
 const reminders = [];
 
+// Use an online alarm sound
+const audio = new Audio("https://www.soundjay.com/button/beep-07.mp3");
+
+// Ask for notification permission on page load
+if ("Notification" in window && Notification.permission !== "granted") {
+  Notification.requestPermission();
+}
+
 function addReminder() {
   const time = document.getElementById("reminder-time").value;
   const note = document.getElementById("reminder-note").value;
@@ -26,18 +34,31 @@ function addReminder() {
   `;
   document.getElementById("reminderList").appendChild(reminderDiv);
 
+  // Close modal and reset inputs
   bootstrap.Modal.getInstance(document.getElementById('reminderModal')).hide();
   document.getElementById("reminder-time").value = "";
   document.getElementById("reminder-note").value = "";
 }
 
+function playAlarm(note) {
+  audio.play();
+
+  if ("Notification" in window && Notification.permission === "granted") {
+    new Notification("⏰ Reminder!", {
+      body: note,
+      icon: "https://cdn-icons-png.flaticon.com/512/565/565547.png"
+    });
+  }
+}
+
+// Check reminders every minute
 setInterval(() => {
   const now = new Date();
   const currentTime = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
 
   reminders.forEach(r => {
     if (r.time === currentTime) {
-      alert(`⏰ Reminder: ${r.note}`);
+      playAlarm(r.note);
     }
   });
 }, 60000);
