@@ -14,7 +14,7 @@ router.post('/signup', async (req, res) => {
     await user.save();
 
     req.session.user = user;
-    res.redirect('/student.html');
+    res.redirect('/student');
   } catch (err) {
     console.error(err);
     res.status(500).send('<h1>Signup failed</h1><a href="/index.html">Try again</a>');
@@ -28,14 +28,14 @@ router.post('/login', async (req, res) => {
 
     const user = await User.findOne({ email });
     if (!user || !(await user.comparePassword(password))) {
-      return res.status(400).send('<h1>Invalid credentials</h1><a href="/index.html">Try again</a>');
+      return res.status(400).send('<h1>Invalid credentials</h1><a href="/login">Try again</a>');
     }
 
     req.session.user = user;
-    res.redirect('/student.html');
+    res.redirect('/student');
   } catch (err) {
     console.error(err);
-    res.status(500).send('<h1>Login failed</h1><a href="/index.html">Try again</a>');
+    res.status(500).send('<h1>Login failed</h1><a href="/login">Try again</a>');
   }
 });
 

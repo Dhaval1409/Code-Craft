@@ -11,7 +11,7 @@ const Tesseract = require("tesseract.js");
 const mongoose = require('mongoose');
 const session = require('express-session');
 
-
+const schemeRoutes = require('./routes/schemes');
 const authRoutes = require('./routes/auth');
 const mandiItemsRouter = require('./routes/items');
 
@@ -46,6 +46,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views')); // Ensure views directory set
 
 // ===============================
 // 🔑 Session Setup
@@ -61,43 +62,62 @@ app.use(session({
 // ===============================
 function isAuthenticated(req, res, next) {
   if (req.session.user) next();
-  else res.redirect('/login.html');
+  else res.redirect('/login');
 }
+
+// ✅ Apply authentication globally except for login routes
+app.use((req, res, next) => {
+  if (req.path === '/login' || req.path.startsWith('/auth')) {
+    return next();
+  }
+  isAuthenticated(req, res, next);
+});
 
 // ===============================
 // 🛣️ Routes
 // ===============================
 
-// ✅ Serve login page manually
-app.get('/login.html', (req, res) => {
-  res.render('login');
-});
-
-app.get('/student.html', isAuthenticated, (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'student.html'));
+// ✅ Render login page
+app.get('/login', (req, res) => {
+  res.render('index'); // views/login.ejs
 });
 
 // ✅ Auth routes
 app.use('/auth', authRoutes);
 
-// ✅ Protected items API
-app.use('/api/mandi-items', isAuthenticated, mandiItemsRouter);
+// ✅ Scheme API routes
+app.use('/api/schemes', schemeRoutes);
 
-// ✅ Protected index route
-app.get('/', isAuthenticated, (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// ✅ Protected mandi items API
+app.use('/api/mandi-items', mandiItemsRouter);
+
+// ✅ Student page
+app.get('/student', (req, res) => {
+  res.render('student'); // views/student.ejs
 });
 
-// ✅ Example protected farmer route (implement getItemsFromDB)
-app.get('/farmer', isAuthenticated, async (req, res) => {
-  const items = await getItemsFromDB(); // Define this function in your code
-  res.render('farmer', { items });
+// ✅ Index route
+app.get('/', (req, res) => {
+  res.render('index'); // views/index.ejs
 });
 
+// ✅ Farmer route (example)
+app.get('/farmer', async (req, res) => {
+// //   / Implement getItemsFromDB()
+//   res.render('farmer', { items });
+res.render('farmer');
+});
+
+app.get('/schem', (req, res) => {
+  res.render('schem'); // views/schem.ejs
+});
+app.get('/helth', (req, res) => {
+  res.render('helth'); // views/index.ejs
+});
 // ===============================
 // 🤖 OpenRouter Chat Route
 // ===============================
-app.post('/ask', isAuthenticated, async (req, res) => {
+app.post('/ask', async (req, res) => {
   const { message } = req.body;
 
   try {
@@ -126,7 +146,7 @@ app.post('/ask', isAuthenticated, async (req, res) => {
 // ===============================
 // 🌤️ Weather API Route
 // ===============================
-app.get("/weather", isAuthenticated, async (req, res) => {
+app.get("/weather", async (req, res) => {
   const { lat, lon } = req.query;
   const apiKey = process.env.OPENWEATHERMAP_API_KEY;
 
@@ -146,23 +166,22 @@ app.get("/weather", isAuthenticated, async (req, res) => {
 // ===============================
 // 🖼️ Image Upload & OCR Route
 // ===============================
-app.post("/upload-image", isAuthenticated, upload.single("image"), async (req, res) => {
-  console.log("Image upload request received");
+app.post("/upload-image", upload.single("image"), async (req, res) => {
+  console.log("📷 Image upload request received");
 
   try {
     if (!req.file) {
-      console.log("No file uploaded");
+      console.log("❌ No file uploaded");
       return res.status(400).json({ reply: "No file uploaded" });
     }
 
     const imagePath = req.file.path;
-    console.log("Image saved at:", imagePath);
+    console.log("✅ Image saved at:", imagePath);
 
-    // OCR with Tesseract
+    // 📝 OCR with Tesseract
     const { data: { text } } = await Tesseract.recognize(imagePath, "eng");
-    console.log("Extracted Text:", text);
+    console.log("🔍 Extracted Text:", text);
 
-    // Call OpenRouter API
     const response = await axios.post(
       "https://openrouter.ai/api/v1/chat/completions",
       {
@@ -178,10 +197,11 @@ app.post("/upload-image", isAuthenticated, upload.single("image"), async (req, r
     );
 
     const reply = response.data.choices[0].message.content;
-    console.log("OpenRouter reply:", reply);
+    console.log("🤖 OpenRouter reply:", reply);
     res.json({ reply });
+
   } catch (err) {
-    console.error("Error in /upload-image:", err);
+    console.error("❌ Error in /upload-image:", err.response?.data || err.message);
     res.status(500).json({ reply: "Failed to process the image." });
   }
 });

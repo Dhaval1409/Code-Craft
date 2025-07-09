@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student | JeevanAI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #fff;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      transition: left 0.3s ease;
+      padding: 20px;
+      z-index: 999;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .sidebar h4 {
+      margin-bottom: 20px;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .sidebar a {
+      display: block;
+      margin-bottom: 10px;
+      color: #444;
+      text-decoration: none;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.3);
+      display: none;
+      z-index: 998;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+  <div class="sidebar" id="sidebar">
+    <h4 id="profileName">Hello, Guest</h4>
+    <a href="/auth/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    <hr>
+  
+  
+  </div>
+
+  <header>
+    <div class="menu">
+      <div class="bars" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></div>
+      <div class="logo">JeevanAI</div>
+    </div>
+  </header>
+
+  <div class="chatbox" id="chat-box">
+    <div class="message bot">Welcome to JeevanAI! Ask me anything. ❤️</div>
+  </div>
+
+  <div class="searchmessage">
+    <input type="text" placeholder="type here" id="user-input" />
+    <div class="icons">
+      <input type="file" id="image-upload" accept="image/*" style="display: none;" />
+      <i class="fa-solid fa-plus" id="upload-icon"></i>
+      <i class="fa-solid fa-sliders"></i>
+      <i class="fa-solid fa-microphone" id="mic-btn"></i>
+      <i class="fa-solid fa-paper-plane" id="send-btn"></i>
+    </div>
+  </div>
+    <div class="nav">
+        <a href="/student"><i class="fa-solid fa-house"></i></a>
+        <a href="/farmer"><i class="fa-solid fa-wheat-awn"></i></a>
+        <a href="/helth"><i class="fa-solid fa-heart-pulse"></i></a>
+        <a href="/schem"><i class="fa-solid fa-user"></i></a>
+    </div>
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('active');
+    }
+
+    // Dynamically insert username from session or localStorage (example)
+    const profileName = document.getElementById("profileName");
+    const user = sessionStorage.getItem("username") || "Guest";  // Replace with dynamic session logic
+    profileName.textContent = `Hello, ${user}`;
+  </script>
+
+  <script src="/script.js"></script>
+</body>
+</html>
